@@ -5,6 +5,7 @@ import { getMessages } from "next-intl/server";
 import { ThemeProvider } from "@/components/layout/ThemeProvider";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { EntryCaptcha } from "@/components/ui/EntryCaptcha";
 import "../globals.css";
 
 const inter = Inter({
@@ -56,6 +57,7 @@ export default async function LocaleLayout({
       <body className="font-inter antialiased">
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
+            <EntryCaptcha />
             <Navbar />
             <main>{children}</main>
             <Footer />
