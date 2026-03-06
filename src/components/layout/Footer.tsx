@@ -4,9 +4,9 @@ import { useTranslations } from "next-intl";
 import { Github, Send, Linkedin, Code2 } from "lucide-react";
 
 const socials = [
-  { icon: Github, href: "https://github.com/kravchuk-m", label: "GitHub" },
-  { icon: Send, href: "https://t.me/kravchuk_dev", label: "Telegram" },
-  { icon: Linkedin, href: "https://linkedin.com/in/kravchuk-m", label: "LinkedIn" },
+  { icon: Github, href: "https://github.com/q1mlvd", label: "GitHub" },
+  { icon: Send, href: "https://t.me/q1mlvd", label: "Telegram" },
+  { icon: Linkedin, href: "https://www.linkedin.com/in/mykhailo-kravchuk-50a7813b5/", label: "LinkedIn" },
 ];
 
 export function Footer() {

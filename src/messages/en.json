@@ -8,28 +8,28 @@
   "hero": {
     "greeting": "Hello, I'm",
     "name": "Mikhailo Kravchuk",
-    "tagline": "Engineering Scalable Web Ecosystems & Automation",
-    "description": "I build high-performance web applications, architect Telegram & Discord bot systems, and design robust database solutions that scale.",
+    "tagline": "Junior Web Developer — Clean Code & Modern UI",
+    "description": "I build websites and landing pages, work with HTML, CSS, JavaScript and React. I take on straightforward tasks and learn something new with every project.",
     "cta_primary": "View My Work",
     "cta_secondary": "Get In Touch",
-    "badge": "Available for freelance"
+    "badge": "Open to junior roles & freelance"
   },
   "about": {
     "title": "About Me",
-    "subtitle": "Full-stack developer with a passion for clean code and elegant solutions",
-    "bio": "I'm a full-stack developer specializing in building scalable web applications, intelligent bot ecosystems, and high-performance database architectures. My work sits at the intersection of design and engineering — delivering products that are both visually compelling and technically sound.",
+    "subtitle": "Beginner web developer with a love for clean code and good design",
+    "bio": "I'm a junior web developer who builds websites, landing pages and simple web apps. I work with HTML, CSS, JavaScript and React, pay attention to detail and always strive to improve. I'm honest about my skill level — I take on tasks I can actually deliver well.",
     "services": {
       "web": {
-        "title": "Web Development",
-        "description": "Crafting responsive, SEO-optimized web applications with a focus on clean UI and peak performance. From landing pages to full-stack platforms."
+        "title": "Websites & Landing Pages",
+        "description": "Building clean, responsive websites and landing pages using HTML, CSS, JavaScript and React. Mobile-friendly and easy to maintain."
       },
       "bots": {
-        "title": "Bot Ecosystems",
-        "description": "Architecting complex Telegram & Discord bots: from automated payment gateways and community management to deep API integrations and custom admin panels."
+        "title": "Simple Telegram Bots",
+        "description": "Creating basic Telegram bots for notifications, form forwarding or simple automation — straightforward tasks without complex integrations."
       },
       "db": {
-        "title": "Database Architecture",
-        "description": "Designing scalable SQL/NoSQL schemas focused on data integrity, high availability, and query optimization for demanding production workloads."
+        "title": "Basic UI & Layouts",
+        "description": "Turning designs into working interfaces. I can work with Figma mockups and implement them using modern CSS and component libraries."
       }
     },
     "stats": {
@@ -65,13 +65,14 @@
     "subtitle": "Have a project in mind? I'd love to hear about it.",
     "name_label": "Name",
     "name_placeholder": "Your name",
-    "email_label": "Email",
-    "email_placeholder": "your@email.com",
+    "contact_label": "How to contact you",
+    "contact_placeholder": "Telegram, email, phone...",
     "message_label": "Message",
     "message_placeholder": "Tell me about your project...",
     "send_button": "Send Message",
     "sending": "Sending...",
     "success": "Message sent! I'll get back to you soon.",
+    "error": "Something went wrong. Try again.",
     "or": "Or reach me directly"
   },
   "footer": {

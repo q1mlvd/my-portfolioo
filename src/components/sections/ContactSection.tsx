@@ -3,53 +3,62 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { Send, Github, Linkedin, CheckCircle2, Mail } from "lucide-react";
+import { Send, Github, Linkedin, CheckCircle2, Mail, AlertCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const socials = [
   {
     icon: Send,
     label: "Telegram",
-    handle: "@kravchuk_dev",
-    href: "https://t.me/kravchuk_dev",
+    handle: "@q1mlvd",
+    href: "https://t.me/q1mlvd",
     color: "hover:text-blue-400 hover:border-blue-500/40",
   },
   {
     icon: Github,
     label: "GitHub",
-    handle: "kravchuk-m",
-    href: "https://github.com/kravchuk-m",
+    handle: "q1mlvd",
+    href: "https://github.com/q1mlvd",
     color: "hover:text-gray-200 hover:border-gray-500/40",
   },
   {
     icon: Mail,
     label: "Email",
-    handle: "contact@kravchuk.dev",
-    href: "mailto:contact@kravchuk.dev",
+    handle: "mishakravhuk@gmail.com",
+    href: "mailto:mishakravhuk@gmail.com",
     color: "hover:text-violet-400 hover:border-violet-500/40",
   },
   {
     icon: Linkedin,
     label: "LinkedIn",
-    handle: "kravchuk-m",
-    href: "https://linkedin.com/in/kravchuk-m",
+    handle: "mykhailo-kravchuk",
+    href: "https://www.linkedin.com/in/mykhailo-kravchuk-50a7813b5/",
     color: "hover:text-blue-500 hover:border-blue-600/40",
   },
 ];
 
 export function ContactSection() {
   const t = useTranslations("contact");
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
+  const [form, setForm] = useState({ name: "", contact: "", message: "" });
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("sending");
-    // Simulate form submission
-    await new Promise((r) => setTimeout(r, 1500));
-    setStatus("sent");
-    setForm({ name: "", email: "", message: "" });
-    setTimeout(() => setStatus("idle"), 4000);
+    try {
+      const res = await fetch("/api/send-lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error("Failed");
+      setStatus("sent");
+      setForm({ name: "", contact: "", message: "" });
+      setTimeout(() => setStatus("idle"), 4000);
+    } catch {
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 4000);
+    }
   };
 
   return (
@@ -100,14 +109,14 @@ export function ContactSection() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
-                    {t("email_label")}
+                    {t("contact_label")}
                   </label>
                   <input
-                    type="email"
+                    type="text"
                     required
-                    placeholder={t("email_placeholder")}
-                    value={form.email}
-                    onChange={(e) => setForm({ ...form, email: e.target.value })}
+                    placeholder={t("contact_placeholder")}
+                    value={form.contact}
+                    onChange={(e) => setForm({ ...form, contact: e.target.value })}
                     className="w-full px-4 py-3 rounded-xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-600 focus:outline-none focus:border-blue-500 dark:focus:border-blue-500 transition-colors text-sm"
                   />
                 </div>
@@ -129,11 +138,13 @@ export function ContactSection() {
 
               <button
                 type="submit"
-                disabled={status !== "idle"}
+                disabled={status === "sending"}
                 className={cn(
                   "w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm transition-all duration-200",
                   status === "sent"
                     ? "bg-emerald-500 text-white"
+                    : status === "error"
+                    ? "bg-red-500 text-white"
                     : "bg-blue-500 hover:bg-blue-600 text-white hover:shadow-lg hover:shadow-blue-500/25",
                   status === "sending" && "opacity-70 cursor-not-allowed"
                 )}
@@ -147,6 +158,11 @@ export function ContactSection() {
                   <>
                     <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                     {t("sending")}
+                  </>
+                ) : status === "error" ? (
+                  <>
+                    <AlertCircle className="w-4 h-4" />
+                    {t("error")}
                   </>
                 ) : (
                   <>
