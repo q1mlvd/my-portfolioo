@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { Send, Github, Linkedin, CheckCircle2, Mail, AlertCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { MathCaptcha } from "@/components/ui/MathCaptcha";
 
 const socials = [
   {
@@ -41,10 +42,12 @@ export function ContactSection() {
   const t = useTranslations("contact");
   const [form, setForm] = useState({ name: "", contact: "", message: "" });
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [captchaOk, setCaptchaOk] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("sending");
+    if (!captchaOk) return;
     try {
       const res = await fetch("/api/send-lead", {
         method: "POST",
@@ -54,6 +57,7 @@ export function ContactSection() {
       if (!res.ok) throw new Error("Failed");
       setStatus("sent");
       setForm({ name: "", contact: "", message: "" });
+      setCaptchaOk(false);
       setTimeout(() => setStatus("idle"), 4000);
     } catch {
       setStatus("error");
@@ -136,16 +140,20 @@ export function ContactSection() {
                 />
               </div>
 
+              <MathCaptcha onVerify={setCaptchaOk} />
+
               <button
                 type="submit"
-                disabled={status === "sending"}
+                disabled={status === "sending" || !captchaOk}
                 className={cn(
                   "w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm transition-all duration-200",
                   status === "sent"
                     ? "bg-emerald-500 text-white"
                     : status === "error"
                     ? "bg-red-500 text-white"
-                    : "bg-blue-500 hover:bg-blue-600 text-white hover:shadow-lg hover:shadow-blue-500/25",
+                    : captchaOk
+                    ? "bg-blue-500 hover:bg-blue-600 text-white hover:shadow-lg hover:shadow-blue-500/25"
+                    : "bg-white/5 text-gray-500 cursor-not-allowed border border-white/10",
                   status === "sending" && "opacity-70 cursor-not-allowed"
                 )}
               >
