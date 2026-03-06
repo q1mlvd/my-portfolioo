@@ -34,10 +34,14 @@ interface Props {
 }
 
 export function MathCaptcha({ onVerify }: Props) {
-  const [puzzle, setPuzzle] = useState(generate);
+  const [puzzle, setPuzzle] = useState<ReturnType<typeof generate> | null>(null);
   const [input, setInput] = useState("");
   const [state, setState] = useState<"idle" | "correct" | "wrong">("idle");
   const [shake, setShake] = useState(false);
+
+  useEffect(() => {
+    setPuzzle(generate());
+  }, []);
 
   const refresh = useCallback(() => {
     setPuzzle(generate());
@@ -47,7 +51,7 @@ export function MathCaptcha({ onVerify }: Props) {
   }, [onVerify]);
 
   useEffect(() => {
-    if (input === "") return;
+    if (!puzzle || input === "") return;
     const val = parseInt(input, 10);
     if (isNaN(val)) return;
 
@@ -63,7 +67,11 @@ export function MathCaptcha({ onVerify }: Props) {
         refresh();
       }, 800);
     }
-  }, [input, puzzle.answer, onVerify, refresh]);
+  }, [input, puzzle, onVerify, refresh]);
+
+  if (!puzzle) return (
+    <div className="rounded-xl border border-white/10 bg-[#0d1117] h-[120px] animate-pulse" />
+  );
 
   const opColor =
     puzzle.op === "+"
