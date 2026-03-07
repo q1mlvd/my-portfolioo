@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import Link from "next/link";
 import { ArrowRight, Download, BookOpen, FileText, Layers } from "lucide-react";
 
 const posts = [
@@ -100,36 +99,36 @@ export function BlogSection() {
             {posts.map((post, i) => {
               const Icon = post.icon;
               return (
-                <Link key={post.id} href={post.href} className="block">
-                  <motion.article
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.1 }}
-                    whileHover={{ y: -4 }}
-                    className="group h-full p-6 rounded-2xl bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 hover:border-blue-500/30 transition-all duration-300 cursor-pointer"
-                  >
-                    <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${post.gradient} flex items-center justify-center mb-4`}>
-                      <Icon className="w-5 h-5 text-white" />
-                    </div>
-                    <div className="flex items-center gap-2 mb-3">
-                      <span className="text-xs font-medium text-blue-500 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/10 px-2 py-0.5 rounded-full">
-                        {post.tag}
-                      </span>
-                      <span className="text-xs text-gray-400">{post.readTime} read</span>
-                    </div>
-                    <h4 className="font-space font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors leading-snug">
-                      {post.title}
-                    </h4>
-                    <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-4">
-                      {post.excerpt}
-                    </p>
-                    <div className="flex items-center gap-1 text-blue-500 dark:text-blue-400 text-sm font-medium">
-                      {t("read_more")}
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    </div>
-                  </motion.article>
-                </Link>
+                <motion.a
+                  key={post.id}
+                  href={post.href}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  whileHover={{ y: -4 }}
+                  className="group block p-6 rounded-2xl bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 hover:border-blue-500/30 transition-all duration-300 cursor-pointer"
+                >
+                  <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${post.gradient} flex items-center justify-center mb-4`}>
+                    <Icon className="w-5 h-5 text-white" />
+                  </div>
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-xs font-medium text-blue-500 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/10 px-2 py-0.5 rounded-full">
+                      {post.tag}
+                    </span>
+                    <span className="text-xs text-gray-400">{post.readTime} read</span>
+                  </div>
+                  <h4 className="font-space font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors leading-snug">
+                    {post.title}
+                  </h4>
+                  <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-4">
+                    {post.excerpt}
+                  </p>
+                  <div className="flex items-center gap-1 text-blue-500 dark:text-blue-400 text-sm font-medium">
+                    {t("read_more")}
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </motion.a>
               );
             })}
           </div>
